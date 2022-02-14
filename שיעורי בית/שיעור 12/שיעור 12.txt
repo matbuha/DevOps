@@ -1,0 +1,35 @@
+sudo -i
+
+yum install docker
+
+systemctl enable docker
+
+systemctl start docker
+
+docker run -d -p 80:80 nginx
+
+
+pycharm:
+
+pip install awscli
+
+aws configure
+
+us-east-1
+
+json
+
+aws ec2 describe-instances
+
+aws ec2 describe-instances --query "Reservations[].Instances[].PublicIpAddress"
+
+aws ec2 describe-instances --filter Name=instance-type,Values=t2.micro --query "Reservations[].Instances[].InstanceId" --output table
+
+
+create ec2 from cli:
+
+aws ec2 run-instances --image-id ami-0c2b8ca1dad447f8a --count 1 --instance-type t2.micro
+
+
+
+pip install boto3
