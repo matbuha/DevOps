@@ -1,0 +1,56 @@
+sudo -i
+sudo su-
+ls
+ls -l
+ls -ltr
+pwd
+su - vagrant
+cd -
+ls -la
+ls -ltrah
+ls -ltrahR
+alias my_ls='ls -ltrahR'
+mkdir
+mkdir -p a/b/c/d
+touch 1.txt
+rmdir a/b/c/d
+rm -r a/b/c/d
+rm -rf a/b/c/d
+tree
+cat /var/log/syslog
+tail -100 /var/log/syslog
+less /var/log/syslog    -----> /     ?     q
+head -5 /var/log/syslog
+cp /var/lo/syslog ./test1/moshe
+cp -r test1 test2
+cp -r ./^Cst1 ./test3
+mv test2 moshe1
+
+tar cvf 1.tar test1
+tar xvf 1.tar
+tar cvzf 1.tar.gz test1
+
+date
+
+chmod u+x,g-r,o+w 1.tar ------> u, g, o
+chmod +x 1.tar
+chmod 777 1.tarr ------> u, g, o
+chmod -R +x moshe1/
+
+chown vagrant:vagrant moshe1/
+chown -R vagrant:vagrant moshe1/
+
+nano 1.txt
+
+vim 1.txt
+Esc:wq!
+a
+i
+u
+ctrR
+:! פקודה כלשהי
+EscV
+x
+p
+shiftP
+vimdiff 1.txt 2.txt

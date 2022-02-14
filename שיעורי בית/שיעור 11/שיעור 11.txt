@@ -1,0 +1,52 @@
+type pv.yaml
+kubectl apply -f pv.yaml
+kubectl get pv
+kubectl describe pv
+type pvc.yaml
+kubectl apply -f pvc.yaml
+kubectl get pvc
+kubectl describe pvc
+kubectl get sc
+kubectl apply -f pvc-with-sc.yaml
+kubectl exec -it task-pv-pod -- bash
+cd /usr/share/nginx/html/
+echo 1 > index.html
+exit
+
+type config-map.yaml
+kubectl apply -f config-map.yaml
+
+type pod-with-config-map.yaml
+
+kubectl create configmap game-config --from-file=configs/
+
+kubectl apply -f pod-with-config-map.yaml
+
+kubectl exec -it pod-env-var -- bash
+cd /app
+env
+
+helm repo add bitnami https://charts.bitnami.com/bitnami
+
+helm install my-release bitnami/nginx
+
+helm list
+
+helm upgrade my-release bitnami/nginx --set replicaCount=5
+
+vim my-values.yaml
+
+helm upgrade my-release bitnami/nginx -f my-values.yaml
+
+helm create mychart
+
+cd mychart
+
+type Chart.yaml
+
+type deployment.yaml
+
+helm template my-release ./ --debug
+
+helm upgrade -i aviel ./
+

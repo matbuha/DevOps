@@ -1,0 +1,46 @@
+# 1,2.
+try:
+    a = 1 / 0
+except ZeroDivisionError:
+    print("can't divide by zero")
+
+# 3. yes
+try:
+    x = 1
+finally:
+    print("finally")
+
+# 4. all the exception types
+
+# 5. it will handle all the exceptions and you won't be able to catch a specific exception
+
+# 6. IOError Exception - It is an error raised when an input/output operation fail
+#    ZeroDivisionError - handles divison by zero
+
+# 7.
+my_file = open("words.txt", "w")
+my_file.close()
+
+# 8.
+my_file = open("words.txt", "w")
+my_file.write("ariel")
+my_file.close()
+
+# 9.
+my_file = open("words.txt", "r")
+print(my_file.readlines())
+my_file.close()
+
+# 10.
+myfile2 = open("hebretext.txt", "w")
+myfile2.write("היי")
+myfile2.close()
+
+myfile2 = open("hebretext.txt", "r")
+readf = myfile2.read()
+print(readf)
+
+# Challenge
+from PIL import Image
+image1 = Image.open("ball.jpg")
+image1.save("ball.png")

@@ -1,0 +1,128 @@
+minikube start
+kubectl get pods
+kubectl get nodes
+minikube dashboard
+kubectl describe node-desktop
+kubectl run nginx --image=nginx:1.15.12-alpine
+kubectle describe pod nginx
+kubectl create deployment hello-node --image=nginx:1.15.12-alpine
+kubectl get deployment
+kubectl describe deployment hello-node
+kubectl get replicaset
+kubectl describe replicaset hello-node(replica set-number of pod)
+kubectl scale deployment hello-node --replicas=3
+kubectl set image deployment hello-node nginx=nginx:alpine
+kubectl get pods -v9
+kubectl expose deployment hello-node --type=ClusterIP --port=80
+kubectl get services
+kubectl describe services hello-node
+kubectl scale deployment hello-node --replicas=1
+kubectl get pods -l app=hello-node
+kubectl run avielb --rm -i --tty --image nicolaka/netshoot -- /bin/bash
+curl (IPservice)
+kubectl delete services hello-node
+kubectl expose deployment hello-node --type=NodePort --port=80
+minikube IP (cmd)   /    localhost (docker desktop)
+kubectl apply -f (קובץ כלשהו)
+
+git bash:
+git clone https://github.com/avielb/k8s-demo
+kubectl delete pod nginx
+kubectl apply -f pod-with-service.yaml
+
+
+
+
+
+frontend-deployment.yaml:
+this type is  Deployment, named frontend, with 3 replicas, inside there's a 
+containers name: php-redis with cpu 100m 
+and memory 100Mi with containerPort 80
+
+frontend-service.yaml:
+this type is Service, named frontend, typeNodePort, in port 80
+
+redis-master-deployment.yaml:
+this type is  Deployment, named redis-master, with 1 replica, with container
+named master, and image k8s.gcr.io/redis:e2e, cpu 100m memory 100Mi
+containerPort 6379
+
+redis-master-service.yaml:
+this type is Service, named redis-master, port: 6379 and targetPort: 6379
+
+redis-slave-deployment.yaml:
+this type is  Deployment, name: redis-slave, replicas: 2, container name slave,
+image: gcr.io/google_samples/gb-redisslave:v1, cpu: 100m , memory: 100Mi
+containerPort: 6379
+
+redis-slave-service.yaml:
+this type is Service, name: redis-slave, port: 6379
+
+
+
+
+
+flask with k8s:
+
+from flask import Flask, request
+
+app = Flask("something")
+
+
+@app.route('/whatismyname', methods=['GET', 'POST', 'DELETE'])
+def hello():
+    if request.method == 'GET':
+
+        return '<h1><div id="moshe"><li>mazda</li> <li>citroen</li> <li>chevrolet</li></div></h1>'
+    elif request.method == 'POST':
+        return "saved new car"
+
+
+
+
+@app.route('/')
+def my_func():
+    return "hello and welcome to the world of games"
+
+
+app.run(host="0.0.0.0", port=5000, debug=True)
+
+
+Dockerfile:
+
+FROM python:3-alpine
+RUN pip install flask
+COPY app.py /app.py
+CMD ["python", "/app.py"]
+
+
+Git bash:
+
+docker build -t avielb/my-flask:v0.1 .
+docker push avielb/my-flask:v0.1
+
+yaml file: 
+apiVersion: v1
+kind: Service
+metadata:
+  name: avielb
+spec:
+  selector:
+    name: avielb
+  type: NodePort
+  ports:
+  - name: foo # Actually, no port is needed.
+    port: 80
+    targetPort: 5000
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: avielb
+  labels:
+    name: avielb
+spec:
+  #hostname: frontend001
+  containers:
+    - image: avielb/my-flask:v0.1
+      name: avielb

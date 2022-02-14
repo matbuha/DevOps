@@ -1,0 +1,20 @@
+C:\Users\REL>minikube start
+
+1.
+C:\Users\REL>kubectl run superset --image=amancevice/superset
+pod/superset created
+
+2.
+C:\Users\REL>kubectl expose pod/superset --port 8088 --type NodePort
+service/superset exposed
+
+3.
+C:\Users\REL>kubectl apply -f superset.yaml
+pod/superset configured
+
+4.
+C:\Users\REL>kubectl run airflow --image=puckel/docker-airflow
+pod/airflow created
+
+C:\Users\REL>kubectl expose pod/airflow --port 8080 --type NodePort
+service/airflow exposed

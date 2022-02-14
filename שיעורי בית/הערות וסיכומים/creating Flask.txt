@@ -1,0 +1,53 @@
+
+C:\Users\REL\PycharmProjects\WorldOfGames\Flask_Blog\venv>cd scripts
+
+C:\Users\REL\PycharmProjects\WorldOfGames\Flask_Blog\venv\Scripts>activate
+
+(venv) C:\Users\REL\PycharmProjects\WorldOfGames\Flask_Blog\venv\Scripts>pip install Flask
+Collecting Flask
+  Using cached Flask-2.0.2-py3-none-any.whl (95 kB)
+Collecting itsdangerous>=2.0
+  Using cached itsdangerous-2.0.1-py3-none-any.whl (18 kB)
+Collecting Jinja2>=3.0
+  Using cached Jinja2-3.0.3-py3-none-any.whl (133 kB)
+Collecting click>=7.1.2
+  Using cached click-8.0.3-py3-none-any.whl (97 kB)
+Collecting Werkzeug>=2.0
+  Using cached Werkzeug-2.0.2-py3-none-any.whl (288 kB)
+Collecting colorama
+  Using cached colorama-0.4.4-py2.py3-none-any.whl (16 kB)
+Collecting MarkupSafe>=2.0
+  Using cached MarkupSafe-2.0.1-cp39-cp39-win_amd64.whl (14 kB)
+Installing collected packages: MarkupSafe, colorama, Werkzeug, Jinja2, itsdangerous, click, Flask
+Successfully installed Flask-2.0.2 Jinja2-3.0.3 MarkupSafe-2.0.1 Werkzeug-2.0.2 click-8.0.3 colorama-0.4.4 itsdangerous-2.0.1
+WARNING: You are using pip version 21.1.1; however, version 21.3.1 is available.
+You should consider upgrading via the 'c:\users\rel\pycharmprojects\worldofgames\flask_blog\venv\scripts\python.exe -m pip install --upgrade pip' command.
+
+(venv) C:\Users\REL\PycharmProjects\WorldOfGames\Flask_Blog\venv\Scripts>cd ..
+
+(venv) C:\Users\REL\PycharmProjects\WorldOfGames\Flask_Blog\venv>cd ..
+
+(venv) C:\Users\REL\PycharmProjects\WorldOfGames\Flask_Blog>dir
+ Volume in drive C is Windows
+ Volume Serial Number is 1A1E-C520
+
+ Directory of C:\Users\REL\PycharmProjects\WorldOfGames\Flask_Blog
+
+01/19/2022  08:11 PM    <DIR>          .
+01/19/2022  08:11 PM    <DIR>          ..
+01/17/2022  09:23 PM               118 flaskblog.py
+01/19/2022  08:11 PM    <DIR>          venv
+               1 File(s)            118 bytes
+               3 Dir(s)  99,987,443,712 bytes free
+
+(venv) C:\Users\REL\PycharmProjects\WorldOfGames\Flask_Blog>set FLASK_APP=flaskblog.py
+
+(venv) C:\Users\REL\PycharmProjects\WorldOfGames\Flask_Blog>flask run
+ * Serving Flask app 'flaskblog.py' (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+127.0.0.1 - - [19/Jan/2022 20:23:53] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [19/Jan/2022 20:23:54] "GET /favicon.ico HTTP/1.1" 404 -

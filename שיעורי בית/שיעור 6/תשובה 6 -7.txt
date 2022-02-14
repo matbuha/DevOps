@@ -1,0 +1,144 @@
+
+REL@DESKTOP-KGSTCC9 MINGW64 ~
+$ cd C:/Users/REL/Documents/GitHub/lesson-6
+
+REL@DESKTOP-KGSTCC9 MINGW64 ~/Documents/GitHub/lesson-6 (main)
+$ ls
+class_assigment.py
+
+REL@DESKTOP-KGSTCC9 MINGW64 ~/Documents/GitHub/lesson-6 (main)
+$ git init
+Reinitialized existing Git repository in C:/Users/REL/Documents/GitHub/lesson-6/.git/
+
+REL@DESKTOP-KGSTCC9 MINGW64 ~/Documents/GitHub/lesson-6 (main)
+$ echo 1 > 1.txt
+
+REL@DESKTOP-KGSTCC9 MINGW64 ~/Documents/GitHub/lesson-6 (main)
+$ git add .
+warning: LF will be replaced by CRLF in 1.txt.
+The file will have its original line endings in your working directory
+
+REL@DESKTOP-KGSTCC9 MINGW64 ~/Documents/GitHub/lesson-6 (main)
+$ git commit -am "init commit 1"
+[main 6458960] init commit 1
+ 1 file changed, 1 insertion(+)
+ create mode 100644 1.txt
+
+REL@DESKTOP-KGSTCC9 MINGW64 ~/Documents/GitHub/lesson-6 (main)
+$ echo 2 > 2.txt
+
+REL@DESKTOP-KGSTCC9 MINGW64 ~/Documents/GitHub/lesson-6 (main)
+$ git add .
+warning: LF will be replaced by CRLF in 2.txt.
+The file will have its original line endings in your working directory
+
+REL@DESKTOP-KGSTCC9 MINGW64 ~/Documents/GitHub/lesson-6 (main)
+$ git commit -am "2nd commit"
+[main 94f64c5] 2nd commit
+ 1 file changed, 1 insertion(+)
+ create mode 100644 2.txt
+
+REL@DESKTOP-KGSTCC9 MINGW64 ~/Documents/GitHub/lesson-6 (main)
+$ git checkout -b branch-purple
+Switched to a new branch 'branch-purple'
+
+REL@DESKTOP-KGSTCC9 MINGW64 ~/Documents/GitHub/lesson-6 (branch-purple)
+$ echo 3 > 3.txt
+
+REL@DESKTOP-KGSTCC9 MINGW64 ~/Documents/GitHub/lesson-6 (branch-purple)
+$ git add .
+warning: LF will be replaced by CRLF in 3.txt.
+The file will have its original line endings in your working directory
+
+REL@DESKTOP-KGSTCC9 MINGW64 ~/Documents/GitHub/lesson-6 (branch-purple)
+$ git commit -am "3nd commit"
+[branch-purple b516b07] 3nd commit
+ 1 file changed, 1 insertion(+)
+ create mode 100644 3.txt
+
+REL@DESKTOP-KGSTCC9 MINGW64 ~/Documents/GitHub/lesson-6 (branch-purple)
+$ echo 4 > 4.txt
+
+REL@DESKTOP-KGSTCC9 MINGW64 ~/Documents/GitHub/lesson-6 (branch-purple)
+$ git add .
+warning: LF will be replaced by CRLF in 4.txt.
+The file will have its original line endings in your working directory
+
+REL@DESKTOP-KGSTCC9 MINGW64 ~/Documents/GitHub/lesson-6 (branch-purple)
+$ git commit -am "4nd commit"
+[branch-purple 74e0014] 4nd commit
+ 1 file changed, 1 insertion(+)
+ create mode 100644 4.txt
+
+REL@DESKTOP-KGSTCC9 MINGW64 ~/Documents/GitHub/lesson-6 (branch-purple)
+$ git status
+On branch branch-purple
+nothing to commit, working tree clean
+
+REL@DESKTOP-KGSTCC9 MINGW64 ~/Documents/GitHub/lesson-6 (branch-purple)
+$ git log --graph --oneline --all
+* 74e0014 (HEAD -> branch-purple) 4nd commit
+* b516b07 3nd commit
+* 94f64c5 (main) 2nd commit
+* 6458960 init commit 1
+*   8f8969d (origin/main, origin/HEAD) Merge pull request #1 from matbuha/making-new-branch
+|\
+| *   d1021df (origin/making-new-branch) Merge branch 'main' into making-new-branch
+| |\
+| |/
+|/|
+* | fedc124 sec try to make a conflict
+| * d069783 sec try
+| * e067105 creating a conflict
+|/
+* 8c7baac uploading a python proj
+
+REL@DESKTOP-KGSTCC9 MINGW64 ~/Documents/GitHub/lesson-6 (branch-purple)
+$ git checkout 6458960
+Note: switching to '6458960'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 6458960 init commit 1
+
+
+REL@DESKTOP-KGSTCC9 MINGW64 ~/Documents/GitHub/lesson-6 (branch-purple)
+$ git checkout 6458960
+Note: switching to '6458960'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 6458960 init commit 1
+
+REL@DESKTOP-KGSTCC9 MINGW64 ~/Documents/GitHub/lesson-6 ((6458960...))
+$ git reset --hard 94f64c5
+HEAD is now at 94f64c5 2nd commit
+
+REL@DESKTOP-KGSTCC9 MINGW64 ~/Documents/GitHub/lesson-6 ((94f64c5...))
+$

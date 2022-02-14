@@ -1,0 +1,909 @@
+root@ubuntu-bionic:~# docker pull nginx:alpine
+
+root@ubuntu-bionic:~# docker image ls
+
+root@ubuntu-bionic:~# docker run -d -p 8080:80 nginx:alpine
+
+root@ubuntu-bionic:~# docker --no-trunc
+
+root@ubuntu-bionic:~# ps -ef | grep nginx
+
+root@ubuntu-bionic:~# docker exec -it
+
+root@ubuntu-bionic:~# docker exec -it 616d70b5a5fe sh
+
+/ # ps -ef
+
+/ # ls
+
+/ # exit
+
+root@ubuntu-bionic:~# curl localhost:8080
+
+root@ubuntu-bionic:~# docker stop 616d70b5a5fe
+
+root@ubuntu-bionic:~# docker start 616d70b5a5fe
+
+root@ubuntu-bionic:~# docker rm -vf 616d70b5a5fe
+
+
+root@ubuntu-bionic:~# mkdir my-docker
+
+root@ubuntu-bionic:~# cd my-docker
+
+root@ubuntu-bionic:~/my-docker# vim app.py
+
+import requests
+response = requests.get("https://github.com")
+print(response.status_code)
+
+
+root@ubuntu-bionic:~/my-docker# vim Dockerfile
+
+FROM python:3-alpine
+RUN pip install requests
+COPY app.py /app.py
+CMD ["python", "/app.py"]
+
+
+
+
+root@ubuntu-bionic:~/my-docker# docker build -t my_image .
+
+
+root@ubuntu-bionic:~/my-docker# docker image ls
+
+
+docker network create wordpress
+
+docker network inspect wordpress
+
+docker run --name mysql-container --rm --network wordpress -e MYSQL_ROOT_PASSWORD=wordpress -d nginx:alpine
+
+
+docker run --name wordpress-container --rm --network wordpress -e WORDPRESS_DB_HOST=mysql-container -e WORDPRESS_DB_PASSWORD=wordpress -p 8090:80 -d nginx:alpine
+
+
+root@ubuntu-bionic:~/my-docker# docker exec -it mysql-container sh
+
+
+# ping wordpress-container
+
+
+root@ubuntu-bionic:~/my-docker# docker-compose
+
+
+root@ubuntu-bionic:~/my-docker# vim docker-compose.yaml
+
+
+version: "3.9"
+    
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: somewordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+    
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:latest
+    volumes:
+      - wordpress_data:/var/www/html
+    ports:
+      - "8000:80"
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+volumes:
+  db_data: {}
+  wordpress_data: {}
+
+
+
+root@ubuntu-bionic:~/my-docker# docker-compose up -d
+
+
+
+
+root@ubuntu-bionic:~/my-docker# docker login
+
+
+~/my-docker# docker image ls
+
+
+docker tag my_image avielb/my_image:v0.1
+
+
+root@ubuntu-bionic:~/my-docker# docker run dordo/my_image:v0.1
+
+
+
+root@ubuntu-bionic:~/my-docker# docker volume ls
+
+
+docker image ls | awk '{print "docker rmi "$3" -f"}'| sh
+
+
+docker system prune
+
+-------------------פלט--------------------------------
+
+
+UserPc@kate MINGW64 ~
+$ cd ansible-demo/vagrant/
+
+UserPc@kate MINGW64 ~/ansible-demo/vagrant (master)
+$ vagrant up
+Vagrant failed to initialize at a very early stage:
+
+The version of powershell currently installed on this host is less than
+the required minimum version. Please upgrade the installed version of
+powershell to the minimum required version and run the command again.
+
+  Installed version: N/A
+  Minimum required version: 3
+
+UserPc@kate MINGW64 ~/ansible-demo/vagrant (master)
+$ vagrant up
+Bringing machine 'default' up with 'virtualbox' provider...
+==> default: You assigned a static IP ending in ".1" to this machine.
+==> default: This is very often used by the router and can cause the
+==> default: network to not work properly. If the network doesn't work
+==> default: properly, try changing this IP.
+==> default: You assigned a static IP ending in ".1" to this machine.
+==> default: This is very often used by the router and can cause the
+==> default: network to not work properly. If the network doesn't work
+==> default: properly, try changing this IP.
+==> default: Checking if box 'ubuntu/bionic64' version '20211216.0.0' is up to date...
+==> default: A newer version of the box 'ubuntu/bionic64' for provider 'virtualbox' is
+==> default: available! You currently have version '20211216.0.0'. The latest is version
+==> default: '20220117.0.0'. Run `vagrant box update` to update.
+==> default: Clearing any previously set forwarded ports...
+==> default: Clearing any previously set network interfaces...
+==> default: Preparing network interfaces based on configuration...
+    default: Adapter 1: nat
+    default: Adapter 2: hostonly
+==> default: Forwarding ports...
+    default: 22 (guest) => 2222 (host) (adapter 1)
+==> default: Running 'pre-boot' VM customizations...
+==> default: Booting VM...
+==> default: Waiting for machine to boot. This may take a few minutes...
+    default: SSH address: 127.0.0.1:2222
+    default: SSH username: vagrant
+    default: SSH auth method: private key
+    default: Warning: Connection aborted. Retrying...
+    default: Warning: Connection reset. Retrying...
+    default: Warning: Connection reset. Retrying...
+    default: Warning: Connection aborted. Retrying...
+    default: Warning: Connection reset. Retrying...
+    default: Warning: Connection aborted. Retrying...
+==> default: Machine booted and ready!
+==> default: Checking for guest additions in VM...
+    default: The guest additions on this VM do not match the installed version of
+    default: VirtualBox! In most cases this is fine, but in rare cases it can
+    default: prevent things such as shared folders from working properly. If you see
+    default: shared folder errors, please make sure the guest additions within the    default: virtual machine match the version of VirtualBox you have installed on    default: your host and reload your VM.
+    default:
+    default: Guest Additions Version: 5.2.42
+    default: VirtualBox Version: 6.1
+==> default: Configuring and enabling network interfaces...
+==> default: Mounting shared folders...
+    default: /vagrant => C:/Users/UserPc/ansible-demo/vagrant
+==> default: Machine already provisioned. Run `vagrant provision` or use the `--provision`
+==> default: flag to force provisioning. Provisioners marked to run always will still run.
+
+UserPc@kate MINGW64 ~/ansible-demo/vagrant (master)
+$
+
+UserPc@kate MINGW64 ~/ansible-demo/vagrant (master)
+$ vagrant ssh
+Welcome to Ubuntu 18.04.6 LTS (GNU/Linux 4.15.0-166-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Sun Jan 23 16:13:56 UTC 2022
+
+  System load:  0.22              Users logged in:        0
+  Usage of /:   6.4% of 38.71GB   IP address for enp0s3:  10.0.2.15
+  Memory usage: 21%               IP address for enp0s8:  192.168.56.1
+  Swap usage:   0%                IP address for docker0: 172.17.0.1
+  Processes:    100
+
+ * Super-optimized for small spaces - read how we shrank the memory
+   footprint of MicroK8s to make it the smallest full K8s around.
+
+   https://ubuntu.com/blog/microk8s-memory-optimisation
+
+8 updates can be applied immediately.
+To see these additional updates run: apt list --upgradable
+
+New release '20.04.3 LTS' available.
+Run 'do-release-upgrade' to upgrade to it.
+
+
+Last login: Wed Jan  5 19:36:04 2022 from 10.0.2.2
+vagrant@ubuntu-bionic:~$ sudu -i
+
+Command 'sudu' not found, did you mean:
+
+  command 'sudo' from deb sudo
+  command 'sudo' from deb sudo-ldap
+  command 'tudu' from deb tudu
+
+Try: apt install <deb name>
+
+vagrant@ubuntu-bionic:~$ sudo -i
+root@ubuntu-bionic:~# docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+root@ubuntu-bionic:~# docker pull nginx:alpine
+alpine: Pulling from library/nginx
+59bf1c3509f3: Pull complete
+f3322597df46: Pull complete
+d09cf91cabdc: Pull complete
+3a97535ac2ef: Pull complete
+919ade35f869: Pull complete
+40e5d2fe5bcd: Pull complete
+Digest: sha256:eb05700fe7baa6890b74278e39b66b2ed1326831f9ec3ed4bdc6361a4ac2f333
+Status: Downloaded newer image for nginx:alpine
+docker.io/library/nginx:alpine
+root@ubuntu-bionic:~# docker image ls
+REPOSITORY   TAG       IMAGE ID       CREATED       SIZE
+nginx        alpine    cc44224bfe20   3 weeks ago   23.5MB
+root@ubuntu-bionic:~# docker run -d -p 8080:80 nginx:alpine
+616d70b5a5fe8aef3bc82c643788ea91f15ba1d9804df66e7e3253e0149f9ea3
+root@ubuntu-bionic:~# docker ps
+CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS         PORTS                                   NAMES
+616d70b5a5fe   nginx:alpine   "/docker-entrypoint.…"   2 minutes ago   Up 2 minutes   0.0.0.0:8080->80/tcp, :::8080->80/tcp   distracted_wiles
+root@ubuntu-bionic:~# docker --no-trunc
+unknown flag: --no-trunc
+See 'docker --help'.
+
+Usage:  docker [OPTIONS] COMMAND
+
+A self-sufficient runtime for containers
+
+Options:
+      --config string      Location of client config files (default "/root/.docker")
+  -c, --context string     Name of the context to use to connect to the daemon (overrides DOCKER_HOST
+                           env var and default context set with "docker context use")
+  -D, --debug              Enable debug mode
+  -H, --host list          Daemon socket(s) to connect to
+  -l, --log-level string   Set the logging level ("debug"|"info"|"warn"|"error"|"fatal") (default "info")
+      --tls                Use TLS; implied by --tlsverify
+      --tlscacert string   Trust certs signed only by this CA (default "/root/.docker/ca.pem")
+      --tlscert string     Path to TLS certificate file (default "/root/.docker/cert.pem")
+      --tlskey string      Path to TLS key file (default "/root/.docker/key.pem")
+      --tlsverify          Use TLS and verify the remote
+  -v, --version            Print version information and quit
+
+Management Commands:
+  builder     Manage builds
+  config      Manage Docker configs
+  container   Manage containers
+  context     Manage contexts
+  image       Manage images
+  manifest    Manage Docker image manifests and manifest lists
+  network     Manage networks
+  node        Manage Swarm nodes
+  plugin      Manage plugins
+  secret      Manage Docker secrets
+  service     Manage services
+  stack       Manage Docker stacks
+  swarm       Manage Swarm
+  system      Manage Docker
+  trust       Manage trust on Docker images
+  volume      Manage volumes
+
+Commands:
+  attach      Attach local standard input, output, and error streams to a running container
+  build       Build an image from a Dockerfile
+  commit      Create a new image from a container's changes
+  cp          Copy files/folders between a container and the local filesystem
+  create      Create a new container
+  diff        Inspect changes to files or directories on a container's filesystem
+  events      Get real time events from the server
+  exec        Run a command in a running container
+  export      Export a container's filesystem as a tar archive
+  history     Show the history of an image
+  images      List images
+  import      Import the contents from a tarball to create a filesystem image
+  info        Display system-wide information
+  inspect     Return low-level information on Docker objects
+  kill        Kill one or more running containers
+  load        Load an image from a tar archive or STDIN
+  login       Log in to a Docker registry
+  logout      Log out from a Docker registry
+  logs        Fetch the logs of a container
+  pause       Pause all processes within one or more containers
+  port        List port mappings or a specific mapping for the container
+  ps          List containers
+  pull        Pull an image or a repository from a registry
+  push        Push an image or a repository to a registry
+  rename      Rename a container
+  restart     Restart one or more containers
+  rm          Remove one or more containers
+  rmi         Remove one or more images
+  run         Run a command in a new container
+  save        Save one or more images to a tar archive (streamed to STDOUT by default)
+  search      Search the Docker Hub for images
+  start       Start one or more stopped containers
+  stats       Display a live stream of container(s) resource usage statistics
+  stop        Stop one or more running containers
+  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+  top         Display the running processes of a container
+  unpause     Unpause all processes within one or more containers
+  update      Update configuration of one or more containers
+  version     Show the Docker version information
+  wait        Block until one or more containers stop, then print their exit codes
+
+Run 'docker COMMAND --help' for more information on a command.
+
+To get more help with docker, check out our guides at https://docs.docker.com/go/guides/
+
+root@ubuntu-bionic:~# ps -ef | grep nginx
+root      1475     1  0 16:03 ?        00:00:00 nginx: master process /usr/sbin/nginx -g daemon on; master_process on;
+www-data  1477  1475  0 16:03 ?        00:00:00 nginx: worker process
+www-data  1478  1475  0 16:03 ?        00:00:00 nginx: worker process
+root      3985  3963  0 16:22 ?        00:00:00 nginx: master process nginx -g daemon off;
+systemd+  4070  3985  0 16:22 ?        00:00:00 nginx: worker process
+systemd+  4071  3985  0 16:22 ?        00:00:00 nginx: worker process
+root      4089  3738  0 16:27 pts/0    00:00:00 grep --color=auto nginx
+root@ubuntu-bionic:~# docker ps
+CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS         PORTS                                   NAMES
+616d70b5a5fe   nginx:alpine   "/docker-entrypoint.…"   7 minutes ago   Up 7 minutes   0.0.0.0:8080->80/tcp, :::8080->80/tcp   distracted_wiles
+root@ubuntu-bionic:~# docker exec -it 616d70b5a5fe sh
+/ # ps -ef
+PID   USER     TIME  COMMAND
+    1 root      0:00 nginx: master process nginx -g daemon off;
+   33 nginx     0:00 nginx: worker process
+   34 nginx     0:00 nginx: worker process
+   35 root      0:00 sh
+   41 root      0:00 ps -ef
+/ # ls
+bin                   etc                   mnt                   run                   tmp
+dev                   home                  opt                   sbin                  usr
+docker-entrypoint.d   lib                   proc                  srv                   var
+
+import requests
+docker-entrypoint.sh  media                 root                  sys
+
+
+/ # exit
+
+FROM python:3-alpine
+root@ubuntu-bionic:~# curl localhost:8080
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+root@ubuntu-bionic:~# docker ps
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS          PORTS                                   NAMES
+616d70b5a5fe   nginx:alpine   "/docker-entrypoint.…"   14 minutes ago   Up 14 minutes   0.0.0.0:8080->80/tcp, :::8080->80/tcp   distracted_wiles
+root@ubuntu-bionic:~# mkdir my-docker
+root@ubuntu-bionic:~# cd my-docker
+root@ubuntu-bionic:~/my-docker# vim my-docker
+root@ubuntu-bionic:~/my-docker# vim app.py
+root@ubuntu-bionic:~/my-docker# vim Dockerfile
+root@ubuntu-bionic:~/my-docker# docker build -t my_image .
+Sending build context to Docker daemon  3.584kB
+Step 1/4 : FROM python:3-alpine
+3-alpine: Pulling from library/python
+59bf1c3509f3: Already exists
+07a400e93df3: Pull complete
+871511af08d0: Pull complete
+27a6a86fbcda: Pull complete
+6e0199b3c23c: Pull complete
+Digest: sha256:556a309f86a892ee0abccdeaa2c70caef89f5788314186052128f6833b4669a1
+Status: Downloaded newer image for python:3-alpine
+ ---> e1b449ac840e
+Step 2/4 : RUN pip install requests
+ ---> Running in 58a7000a10b3
+Collecting requests
+  Downloading requests-2.27.1-py2.py3-none-any.whl (63 kB)
+
+import requests
+Collecting certifi>=2017.4.17
+  Downloading certifi-2021.10.8-py2.py3-none-any.whl (149 kB)
+Collecting charset-normalizer~=2.0.0
+  Downloading charset_normalizer-2.0.10-py3-none-any.whl (39 kB)
+Collecting idna<4,>=2.5
+  Downloading idna-3.3-py3-none-any.whl (61 kB)
+Collecting urllib3<1.27,>=1.21.1
+  Downloading urllib3-1.26.8-py2.py3-none-any.whl (138 kB)
+Installing collected packages: urllib3, idna, charset-normalizer, certifi, requests
+Successfully installed certifi-2021.10.8 charset-normalizer-2.0.10 idna-3.3 requests-2.27.1 urllib3-1.26.8
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+WARNING: You are using pip version 21.2.4; however, version 21.3.1 is available.
+You should consider upgrading via the '/usr/local/bin/python -m pip install --upgrade pip' command.
+Removing intermediate container 58a7000a10b3
+ ---> 121153985c92
+Step 3/4 : copy app/py /app.py
+COPY failed: file not found in build context or excluded by .dockerignore: stat app/py: file does not exist
+root@ubuntu-bionic:~/my-docker# cat my-docker
+import requests
+
+FROM python:3-alpine
+responce = requests.get("https://github.com")
+print(response.status_code)
+
+root@ubuntu-bionic:~/my-docker# cat Dockerfile
+FROM python:3-alpine
+RUN pip install requests
+copy app/py /app.py
+cmd ["python", "/app.py"]
+
+root@ubuntu-bionic:~/my-docker# docker imege ls
+docker: 'imege' is not a docker command.
+See 'docker --help'
+root@ubuntu-bionic:~/my-docker# vim app.py
+root@ubuntu-bionic:~/my-docker# docker image ls
+REPOSITORY   TAG        IMAGE ID       CREATED         SIZE
+<none>       <none>     121153985c92   3 minutes ago   57.6MB
+python       3-alpine   e1b449ac840e   4 days ago      48.7MB
+nginx        alpine     cc44224bfe20   3 weeks ago     23.5MB
+root@ubuntu-bionic:~/my-docker# docker run -d my_image
+Unable to find image 'my_image:latest' locally
+docker: Error response from daemon: pull access denied for my_image, repository does not exist or may require 'docker login': denied: requested access to the resource is denied.
+See 'docker run --help'.
+
+import requests
+root@ubuntu-bionic:~/my-docker# docker logs ^C
+
+import requests
+root@ubuntu-bionic:~/my-docker# docker build -t my_image .
+Sending build context to Docker daemon  4.096kB
+Step 1/4 : FROM python:3-alpine
+ ---> e1b449ac840e
+Step 2/4 : RUN pip install requests
+ ---> Using cache
+ ---> 121153985c92
+Step 3/4 : copy app/py /app.py
+COPY failed: file not found in build context or excluded by .dockerignore: stat app/py: file does not exist
+root@ubuntu-bionic:~/my-docker# vim Dockerfile
+root@ubuntu-bionic:~/my-docker# docker build -t my_image .
+Sending build context to Docker daemon  4.096kB
+Step 1/4 : FROM python:3-alpine
+ ---> e1b449ac840e
+Step 2/4 : RUN pip install requests
+ ---> Using cache
+ ---> 121153985c92
+Step 3/4 : copy app.py /app.py
+ ---> f365b40e062a
+Step 4/4 : cmd ["python", "/app.py"]
+ ---> Running in eb6b0f4f7e8c
+Removing intermediate container eb6b0f4f7e8c
+ ---> 058e79e93823
+Successfully built 058e79e93823
+Successfully tagged my_image:latest
+root@ubuntu-bionic:~/my-docker# docker run -d my_image
+1527179fc4fb4eccc4c1169487f6781a9c696b8cb38c70c8ef4458ab0d6f0412
+root@ubuntu-bionic:~/my-docker# docker logs 15
+Traceback (most recent call last):
+  File "/app.py", line 3, in <module>
+    print(response.status_code
+NameError: name 'response' is not defined. Did you mean: 'responce'?
+root@ubuntu-bionic:~/my-docker# vim app.py
+root@ubuntu-bionic:~/my-docker# vim app.py
+root@ubuntu-bionic:~/my-docker# docker run -d my_image
+b52597877bda2b42cdc4bf78ad8c74acb6d7d90203803aa6f090e6e9ee8b9744
+root@ubuntu-bionic:~/my-docker# docker ps
+CONTAINER ID   IMAGE          COMMAND                  CREATED             STATUS             PORTS
+                        NAMES
+616d70b5a5fe   nginx:alpine   "/docker-entrypoint.…"   About an hour ago   Up About an hour   0.0.0.0:8080->80/tcp, :::8080->80/tcp   distracted_wiles
+root@ubuntu-bionic:~/my-docker# docker network create wordpress
+86537db7ad169a694ae8a43ed0f16ac513fcd048d3d437a3745b6e9d1a713543
+root@ubuntu-bionic:~/my-docker# docker network inspect wordpress
+[
+    {
+        "Name": "wordpress",
+        "Id": "86537db7ad169a694ae8a43ed0f16ac513fcd048d3d437a3745b6e9d1a713543",
+        "Created": "2022-01-23T17:38:32.136977955Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "172.18.0.0/16",
+                    "Gateway": "172.18.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {},
+        "Options": {},
+        "Labels": {}
+    }
+]
+root@ubuntu-bionic:~/my-docker# docker run --name mysql-container --rm --network wordpress -e MYSQL_ROOT_PASSWORD=wordpress -d mysql:5.7
+Unable to find image 'mysql:5.7' locally
+5.7: Pulling from library/mysql
+72a69066d2fe: Pull complete
+93619dbc5b36: Pull complete
+99da31dd6142: Pull complete
+e5c707858ec0: Pull complete
+fc41578cbf60: Pull complete
+4785d896ef10: Pull complete
+7d250cdc93be: Pull complete
+2efe6ef3579a: Pull complete
+40dc4a5ca43a: Pull complete
+cd6f90222f59: Pull complete
+031e631e9021: Pull complete
+Digest: sha256:66480693e01295d85954bb5dbe2f41f29ebceb57d3d8098ea0c9d201473f2d8b
+Status: Downloaded newer image for mysql:5.7
+5d5ce5609558fed372b869b44b0caa8fc0d4cc3bfcecf9600f8233dc397043d3
+root@ubuntu-bionic:~/my-docker# docker run --name mysql-container --rm --network wordpress -e MYSQL_ROOT_PASSWORD=wordpress -d mysql:alpine
+Unable to find image 'mysql:alpine' locally
+docker: Error response from daemon: manifest for mysql:alpine not found: manifest unknown: manifest unknown.
+See 'docker run --help'.
+root@ubuntu-bionic:~/my-docker# docker run --name mysql-container --rm --network wordpress -e MYSQL_ROOT_PASSWORD=wordpress -d mysql:alpine
+Unable to find image 'mysql:alpine' locally
+docker: Error response from daemon: manifest for mysql:alpine not found: manifest unknown: manifest unknown.
+See 'docker run --help'.
+root@ubuntu-bionic:~/my-docker# docker run --name mysql-container --rm --network wordpress -e MYSQL_ROOT_PASSWORD=wordpress -d nginx:alpine
+docker: Error response from daemon: Conflict. The container name "/mysql-container" is already in use by container "5d5ce5609558fed372b869b44b0caa8fc0d4cc3bfcecf9600f8233dc397043d3". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+root@ubuntu-bionic:~/my-docker# docker network inspect wordpress
+[
+    {
+        "Name": "wordpress",
+        "Id": "86537db7ad169a694ae8a43ed0f16ac513fcd048d3d437a3745b6e9d1a713543",
+        "Created": "2022-01-23T17:38:32.136977955Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "172.18.0.0/16",
+                    "Gateway": "172.18.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {
+            "5d5ce5609558fed372b869b44b0caa8fc0d4cc3bfcecf9600f8233dc397043d3": {
+                "Name": "mysql-container",
+                "EndpointID": "c7e6f0ecada608e00f28bb122da955f2cba683cb9c22f54ed8b654ac450aa048",
+                "MacAddress": "02:42:ac:12:00:02",
+                "IPv4Address": "172.18.0.2/16",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {},
+        "Labels": {}
+    }
+]
+root@ubuntu-bionic:~/my-docker# docker run --name wordpress-container --rm --network wordpress -e WORDPRESS_DB_HOST=mysql-container -e WORDPRESS_DB_PASSWORD=wordpress -p 8090:80 -d nginx:alpine
+2e0a25d3cf92a8359bcc9cec28118cff460868e4755a9049648bcdd5978bb289
+root@ubuntu-bionic:~/my-docker# docker network inspect wordpress
+[
+    {
+        "Name": "wordpress",
+        "Id": "86537db7ad169a694ae8a43ed0f16ac513fcd048d3d437a3745b6e9d1a713543",
+        "Created": "2022-01-23T17:38:32.136977955Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "172.18.0.0/16",
+                    "Gateway": "172.18.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {
+            "2e0a25d3cf92a8359bcc9cec28118cff460868e4755a9049648bcdd5978bb289": {
+                "Name": "wordpress-container",
+                "EndpointID": "eef6af4670b7dcbff16417962367515a89db0639a6d1c989b898766464a436ae",
+                "MacAddress": "02:42:ac:12:00:03",
+                "IPv4Address": "172.18.0.3/16",
+                "IPv6Address": ""
+            },
+            "5d5ce5609558fed372b869b44b0caa8fc0d4cc3bfcecf9600f8233dc397043d3": {
+                "Name": "mysql-container",
+                "EndpointID": "c7e6f0ecada608e00f28bb122da955f2cba683cb9c22f54ed8b654ac450aa048",
+                "MacAddress": "02:42:ac:12:00:02",
+                "IPv4Address": "172.18.0.2/16",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {},
+        "Labels": {}
+    }
+]
+root@ubuntu-bionic:~/my-docker# docker exec -it mysql-container sh
+# ping wordpress-container
+sh: 1: ping: not found
+# exit
+root@ubuntu-bionic:~/my-docker# docker rm -vf mysql:5.7
+Error: No such container: mysql:5.7
+root@ubuntu-bionic:~/my-docker# docker image ls
+REPOSITORY   TAG        IMAGE ID       CREATED          SIZE
+my_image     latest     058e79e93823   35 minutes ago   57.6MB
+mysql        5.7        42f82e150ec2   3 days ago       448MB
+python       3-alpine   e1b449ac840e   4 days ago       48.7MB
+nginx        alpine     cc44224bfe20   3 weeks ago      23.5MB
+root@ubuntu-bionic:~/my-docker# docker rm -vf 42f82e150ec2
+Error: No such container: 42f82e150ec2
+root@ubuntu-bionic:~/my-docker# docker network inspect wordpress
+[
+    {
+        "Name": "wordpress",
+        "Id": "86537db7ad169a694ae8a43ed0f16ac513fcd048d3d437a3745b6e9d1a713543",
+        "Created": "2022-01-23T17:38:32.136977955Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "172.18.0.0/16",
+                    "Gateway": "172.18.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {
+            "2e0a25d3cf92a8359bcc9cec28118cff460868e4755a9049648bcdd5978bb289": {
+                "Name": "wordpress-container",
+                "EndpointID": "eef6af4670b7dcbff16417962367515a89db0639a6d1c989b898766464a436ae",
+                "MacAddress": "02:42:ac:12:00:03",
+                "IPv4Address": "172.18.0.3/16",
+                "IPv6Address": ""
+            },
+            "5d5ce5609558fed372b869b44b0caa8fc0d4cc3bfcecf9600f8233dc397043d3": {
+                "Name": "mysql-container",
+                "EndpointID": "c7e6f0ecada608e00f28bb122da955f2cba683cb9c22f54ed8b654ac450aa048",
+                "MacAddress": "02:42:ac:12:00:02",
+                "IPv4Address": "172.18.0.2/16",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {},
+        "Labels": {}
+    }
+]
+root@ubuntu-bionic:~/my-docker# docker-compose
+Define and run multi-container applications with Docker.
+
+Usage:
+  docker-compose [-f <arg>...] [options] [COMMAND] [ARGS...]
+  docker-compose -h|--help
+
+Options:
+  -f, --file FILE             Specify an alternate compose file (default: docker-compose.yml)
+  -p, --project-name NAME     Specify an alternate project name (default: directory name)
+  --verbose                   Show more output
+  --no-ansi                   Do not print ANSI control characters
+  -v, --version               Print version and exit
+  -H, --host HOST             Daemon socket to connect to
+
+  --tls                       Use TLS; implied by --tlsverify
+  --tlscacert CA_PATH         Trust certs signed only by this CA
+  --tlscert CLIENT_CERT_PATH  Path to TLS certificate file
+  --tlskey TLS_KEY_PATH       Path to TLS key file
+  --tlsverify                 Use TLS and verify the remote
+  --skip-hostname-check       Don't check the daemon's hostname against the name specified
+
+version: "3.9"
+                              in the client certificate (for example if your docker hos
+version: "3.9"
+t
+                              is an IP address)
+  --project-directory PATH    Specify an alternate working directory
+                              (default: the path of the Compose file)
+
+Commands:
+  build              Build or rebuild services
+  bundle             Generate a Docker bundle from the Compose file
+  config             Validate and view the Compose file
+  create             Create services
+  down               Stop and remove containers, networks, images, and volumes
+  events             Receive real time events from containers
+  exec               Execute a command in a running container
+  help               Get help on a command
+  images             List images
+  kill               Kill containers
+  logs               View output from containers
+  pause              Pause services
+  port               Print the public port for a port binding
+  ps                 List containers
+  pull               Pull service images
+  push               Push service images
+  restart            Restart services
+  rm                 Remove stopped containers
+  run                Run a one-off command
+  scale              Set number of containers for a service
+  start              Start services
+  stop               Stop services
+  top                Display the running processes
+  unpause            Unpause services
+  up                 Create and start containers
+  version            Show the Docker-Compose version information
+root@ubuntu-bionic:~/my-docker# vim docker-compose.yaml
+root@ubuntu-bionic:~/my-docker# vim docker-compose.yaml
+root@ubuntu-bionic:~/my-docker# cat docker-compose.yaml
+version: "3.9"
+
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+
+version: "3.2"
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: somewordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:latest
+    volumes:
+      - wordpress_data:/var/www/html
+    ports:
+      - "8000:80"
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+volumes:
+  db_data: {}
+  wordpress_data: {}
+root@ubuntu-bionic:~/my-docker# docker-compose up -d
+ERROR: Version in "./docker-compose.yaml" is unsupported. You might be seeing this error because you're using the wrong Compose file version. Either specify a supported version (e.g "2.2" or "3.3") and place your service definitions under the `services` key, or omit the `version` key and place your service definitions at the root of the file to use version 1.
+For more on the Compose file format versions, see https://docs.docker.com/compose/compose-file/
+root@ubuntu-bionic:~/my-docker# vim docker-compose.yaml
+root@ubuntu-bionic:~/my-docker# docker-compose up -d
+Creating network "mydocker_default" with the default driver
+Creating volume "mydocker_db_data" with default driver
+Creating volume "mydocker_wordpress_data" with default driver
+Pulling wordpress (wordpress:latest)...
+latest: Pulling from library/wordpress
+a2abf6c4d29d: Pull complete
+c5608244554d: Pull complete
+2d07066487a0: Pull complete
+1b6dfaf1958c: Pull complete
+32c5e6a60073: Pull complete
+90cf855b27cc: Pull complete
+8b0f1068c586: Pull complete
+5355461305e8: Pull complete
+ad1eec592342: Pull complete
+e03fbc76cb78: Pull complete
+1f5796e48b39: Pull complete
+72fbe8e1d4e7: Pull complete
+96edece66175: Pull complete
+5f46f0743de2: Pull complete
+c9f9671a5e1f: Pull complete
+3f543dcd35b1: Pull complete
+c88e21a0c2a0: Pull complete
+964b4457a910: Pull complete
+1a025de137e1: Pull complete
+6c7917957677: Pull complete
+271be7ae0cc8: Pull complete
+Digest: sha256:7c33c72f1aba217fd5554d5dbc7dbad3274962c5602da353a6196db1241cd05a
+Status: Downloaded newer image for wordpress:latest
+Creating mydocker_db_1 ...
+Creating mydocker_db_1 ... done
+Creating mydocker_wordpress_1 ...
+Creating mydocker_wordpress_1 ... done
+root@ubuntu-bionic:~/my-docker# docker login
+Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
+Username: arielbenzikri
+Password:
+Error response from daemon: Get https://registry-1.docker.io/v2/: unauthorized: incorrect username or password
+root@ubuntu-bionic:~/my-docker# docker login
+Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
+Username: arielbenzikri
+Password:
+Error response from daemon: Get https://registry-1.docker.io/v2/: unauthorized: incorrect username or password
+root@ubuntu-bionic:~/my-docker# docker login
+Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
+Username: arielbenzikri
+Password:
+Error response from daemon: Get https://registry-1.docker.io/v2/: unauthorized: incorrect username or password
+root@ubuntu-bionic:~/my-docker# docker login
+Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
+Username: arielbenzikri@gmail.com
+Password:
+Error response from daemon: Get https://registry-1.docker.io/v2/: unauthorized: incorrect username or password
+root@ubuntu-bionic:~/my-docker# dordo/my_image:v0.1
+-bash: dordo/my_image:v0.1: No such file or directory
+root@ubuntu-bionic:~/my-docker# docker run dordo/my_image:v0.1
+Unable to find image 'dordo/my_image:v0.1' locally
+v0.1: Pulling from dordo/my_image
+59bf1c3509f3: Already exists
+07a400e93df3: Already exists
+871511af08d0: Already exists
+27a6a86fbcda: Already exists
+6e0199b3c23c: Already exists
+3a1a9bc7cea1: Pull complete
+8fb3fa6c62d3: Pull complete
+Digest: sha256:a954d7ce4ac68bf426b82aaabc4e774c5170858e6ada0369d37e15a92debd2eb
+Status: Downloaded newer image for dordo/my_image:v0.1
+200
+root@ubuntu-bionic:~/my-docker# docker ps
+CONTAINER ID   IMAGE              COMMAND                  CREATED             STATUS             PORTS                                   NAMES
+884bc6aeab3c   wordpress:latest   "docker-entrypoint.s…"   16 minutes ago      Up 16 minutes      0.0.0.0:8000->80/tcp, :::8000->80/tcp   mydocker_wordpress_1
+cf00f2b6d7d8   mysql:5.7          "docker-entrypoint.s…"   16 minutes ago      Up 16 minutes      3306/tcp, 33060/tcp                     mydocker_db_1
+2e0a25d3cf92   nginx:alpine       "/docker-entrypoint.…"   About an hour ago   Up About an hour   0.0.0.0:8090->80/tcp, :::8090->80/tcp   wordpress-container
+5d5ce5609558   mysql:5.7          "docker-entrypoint.s…"   About an hour ago   Up About an hour   3306/tcp, 33060/tcp                     mysql-container
+616d70b5a5fe   nginx:alpine       "/docker-entrypoint.…"   2 hours ago         Up 2 hours         0.0.0.0:8080->80/tcp, :::8080->80/tcp   distracted_wiles
+root@ubuntu-bionic:~/my-docker# docker volume ls
+DRIVER    VOLUME NAME
+local     41a02684bcad8235fc069a7522f2b29be390128975bf3d6b0ff2090c93f95897
+local     mydocker_db_data
+local     mydocker_wordpress_data
+root@ubuntu-bionic:~/my-docker#

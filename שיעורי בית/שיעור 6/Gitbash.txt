@@ -1,0 +1,74 @@
+cd ..
+mkdir my-drawing
+cd my-drawing/
+
+git init
+
+echo 1 > 1.txt
+git add .
+git commit -am "init commit 1"
+
+
+echo 2 > 2.txt
+git add .
+git commit -am "2nd commit"
+
+
+git checkout -b branch-purple
+
+echo 3 > 3.txtcd 
+git add .
+git commit -am "3nd commit"
+
+echo 4 > 4.txt
+git add .
+git commit -am "4nd commit"
+
+git checkout master
+
+echo 5 > 5.txt
+git add .
+git commit -am "5nd commit"
+
+
+echo 6 > 6.txt
+git add .
+git commit -am "6nd commit"
+
+git checkout -b branch-green
+
+echo 7 > 7.txt
+git add .
+git commit -am "7nd commit"
+
+echo 8 > 8.txt
+git add .
+git commit -am "8nd commit"
+
+
+echo 9 > 9.txt
+git add .
+git commit -am "9nd commit"
+
+
+git log --graph --oneline --all
+
+git merge --abort
+
+git merge main -m "merge"
+
+git checkout conflict-merge
+
+ git merge conflict-merge
+history | tail -20
+
+git revert
+git reset
+
+git status
+git log
+
+git tag v0.1<---שם כלשהו
+
+
+cd C:/Users/UserPc/lesson-6
